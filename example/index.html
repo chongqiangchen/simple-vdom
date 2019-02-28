@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+  </style>
+</head>
+
+<body>
+  <script src="../dist/vdom.umd.js"></script>
+  <script>
+    let el = vdom.Element;
+    let diff = vdom.diff;
+    let patch = vdom.patch;
+
+    const tree = el('div', {
+      class: 'div'
+    }, [
+      el('h1', {
+        style: 'color: red;'
+      }, ['Hello, This is my Vdom library']),
+      el('ul', [
+        el('li', ['1111']),
+        el('li', ['2222']),
+      ])
+    ]);
+    const $dom = tree.render();
+    document.body.appendChild($dom);
+
+    const newTree = el('div', {
+      id: 'div1'
+    }, [
+      el('h1', {
+        style: 'color: red;'
+      }, ['Hello, This is my vdom library111']),
+      el('p', {
+        style: 'color: blue;'
+      }, ['extra text']),
+      el('ul', [
+        el('li', ['1111']),
+        el('li', ['5555']),
+        el('li', ['333']),
+      ])
+    ])
+    console.log(tree,newTree)
+    const patches = diff(tree,newTree);
+    console.log(patches);
+    patch($dom,patches);
+  </script>
+</body>
+
+</html>
